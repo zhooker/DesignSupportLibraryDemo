@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="资讯">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_material"
+                    android:icon="@drawable/ic_menu_home"
+                    android:title="Material Design" />
+                <item
+                    android:id="@+id/nav_transition"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="Transition" />
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="设置">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_setting"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="设置" />
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_menu_help"
+                    android:title="关于" />
+            </group>
+        </menu>
+
+    </item>
+
+
+</menu>

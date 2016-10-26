@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/container_simple"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Simple" />
+
+            <TextView
+                android:id="@+id/tv_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is a TextView with unknown text!" />
+        </LinearLayout>
+
+        <include layout="@layout/lines" />
+
+        <FrameLayout
+            android:id="@+id/container_delay"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <Button
+                android:id="@+id/btn_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:text="Delay" />
+        </FrameLayout>
+
+        <include layout="@layout/lines" />
+
+        <LinearLayout
+            android:id="@+id/container_slide"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_slide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Slide" />
+
+            <TextView
+                android:id="@+id/tv_slide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="This is a TextView with unknown text!" />
+        </LinearLayout>
+
+        <include layout="@layout/lines" />
+
+        <LinearLayout
+            android:id="@+id/container_scale"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Custom Scale Transitom" />
+
+            <TextView
+                android:id="@+id/tv_scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="This is a TextView with unknown text!" />
+        </LinearLayout>
+
+        <include layout="@layout/lines" />
+
+        <LinearLayout
+            android:id="@+id/container_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_progress_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="-20%" />
+
+            <Button
+                android:id="@+id/btn_progress_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center_horizontal"
+                android:text="+30%" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:progress="10" />
+        </LinearLayout>
+
+        <include layout="@layout/lines" />
+
+    </LinearLayout>
+</ScrollView>
