@@ -69,6 +69,8 @@ public class TransitionFragment extends BaseFragment implements BottomNavigation
                 break;
         }
         if (fragment != null) {
+            fragment.setAllowEnterTransitionOverlap(false);
+            fragment.setAllowReturnTransitionOverlap(false);
             fragment.setEnterTransition(new Slide(Gravity.RIGHT));
             fragment.setExitTransition(new Slide(Gravity.LEFT));
             reaplceFragment(fragment);

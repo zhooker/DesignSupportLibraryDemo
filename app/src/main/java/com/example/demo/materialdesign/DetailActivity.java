@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         int position = this.getIntent().getIntExtra("position", 0);
         ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
         ViewCompat.setTransitionName(backdrop, Constans.TRANSITION_PIC);
+        // ViewCompat.setTransitionName(fab, Constans.TRANSITION_FAB);
         if (position % 2 == 0) {
             backdrop.setBackgroundResource(R.mipmap.show_img1);
         } else {
@@ -79,12 +81,16 @@ public class DetailActivity extends AppCompatActivity {
     /**
      * @param showImage 启动共享的元素的组件
      */
-    public static void startActivity(Activity activity, int position, ImageView showImage) {
+    public static void startActivity(Activity activity, int position, View showImage) {
         Intent intent = new Intent();
         intent.setClass(activity, DetailActivity.class);
         intent.putExtra("position", position);
+
+        Pair<View, String> p1 = Pair.create(showImage, Constans.TRANSITION_PIC);
+        // Pair<View, String> p2 = Pair.create(fab, Constans.TRANSITION_FAB);
+
         ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(activity, showImage, Constans.TRANSITION_PIC);
+                .makeSceneTransitionAnimation(activity, p1);
         ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.materialdesign;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,24 +19,24 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<String> dataList;
-    private Activity mActivity;
+    private Fragment Fragment;
     //标志避免java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid item position…
     private boolean defaultIndex = false;
 
-    RecyclerViewAdapter(Activity activity, List<String> dataList) {
+    RecyclerViewAdapter(Fragment parent, List<String> dataList) {
         this.dataList = dataList;
-        this.mActivity = activity;
+        this.Fragment = parent;
     }
 
     public void addAll(List<String> list) {
-        if(defaultIndex && dataList.size() > 0)
+        if (defaultIndex && dataList.size() > 0)
             dataList.clear();
         dataList.addAll(list);
         defaultIndex = false;
         notifyDataSetChanged();
     }
 
-    public void clear(){
+    public void clear() {
         //dataList.clear();
         defaultIndex = true;
     }
@@ -76,9 +77,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
                     if (getLayoutPosition() % 2 == 0)
-                        DetailActivity.startActivity(mActivity, getLayoutPosition(), showImage);
+                        DetailActivity.startActivity(Fragment.getActivity(), getLayoutPosition(), showImage);
                     else
-                        DetailActivity2.startActivity(mActivity, getLayoutPosition(), showImage);
+                        DetailActivity2.startActivity(Fragment.getActivity(), getLayoutPosition(), showImage);
                 }
             });
         }

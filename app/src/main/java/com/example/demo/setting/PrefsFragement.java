@@ -4,12 +4,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.example.demo.MainActivity;
 import com.example.demo.R;
+
+import java.util.logging.LogRecord;
 
 /**
  * Created by zhuangsj on 16-10-23.
@@ -69,5 +73,14 @@ public class PrefsFragement extends PreferenceFragment implements SharedPreferen
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("settings_night")) {
+            boolean isCheck = sharedPreferences.getBoolean(key, false);
+            if (isCheck) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            getActivity().recreate();
+        }
     }
 }

@@ -8,4 +8,5 @@ public class Constans {
     public static final String ISNIGHT = "isNight";
     public static final String CURRENT_INDEX = "currentIndex";
     public static final String TRANSITION_PIC = "transitionPic";
+    public static final String TRANSITION_FAB = "transitionFab";
 }

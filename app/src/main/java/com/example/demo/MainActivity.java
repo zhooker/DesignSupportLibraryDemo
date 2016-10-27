@@ -2,6 +2,7 @@ package com.example.demo;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,8 +33,31 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        int index = initFragment(savedInstanceState);
-        navigationView.getMenu().getItem(index).setChecked(true);
+        if (savedInstanceState == null) {
+            currentIndex = 0;
+        } else {
+            currentIndex = savedInstanceState.getInt(Constans.CURRENT_INDEX);
+        }
+
+        Log.d("zhuangsj", "onCreate() currentIndex = " + currentIndex);
+        //onNavigationItemSelected(navigationView.getMenu().findItem(getIdByIndex(currentIndex)));
+        int id = getIdByIndex(currentIndex);
+        if (id == R.id.nav_material) {
+            currentIndex = 0;
+            currentFragment = new MaterialFragment();
+        } else if (id == R.id.nav_transition) {
+            currentIndex = 1;
+            currentFragment = new TransitionFragment();
+        } else if (id == R.id.nav_setting) {
+            currentIndex = 2;
+            currentFragment = new SettingFragement();
+        } else if (id == R.id.nav_about) {
+            currentIndex = 3;
+            currentFragment = new AboutFragment();
+        }
+        switchContent(currentFragment);
+        // 用navigationView.getMenu().getItem(index).setChecked(true);会出问题
+        navigationView.setCheckedItem(id);
     }
 
     public void initDrawer(Toolbar toolbar) {
@@ -55,21 +79,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int initFragment(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            currentIndex = 0;
-
-        } else {
-            //activity销毁后记住销毁前所在页面，用于夜间模式切换
-            currentIndex = savedInstanceState.getInt(Constans.CURRENT_INDEX);
+    private int getIdByIndex(int index) {
+        switch (index) {
+            case 1:
+                return R.id.nav_transition;
+            case 2:
+                return R.id.nav_setting;
+            case 3:
+                return R.id.nav_about;
+            default:
+                return R.id.nav_material;
         }
-        switch (this.currentIndex) {
-            case 0:
-                currentFragment = new MaterialFragment();
-                switchContent(currentFragment);
-                break;
-        }
-        return currentIndex;
     }
 
     public void switchContent(Fragment fragment) {
@@ -132,7 +152,7 @@ public class MainActivity extends AppCompatActivity
         switchContent(currentFragment);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        item.setChecked(true);
+        //item.setChecked(true);
         return true;
     }
 

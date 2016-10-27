@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -49,7 +50,8 @@ public class MaterialFragment extends BaseFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
@@ -121,7 +123,7 @@ public class MaterialFragment extends BaseFragment {
         newfragment = new ContentFragment();
         data = new Bundle();
         data.putInt("id", 2);
-        data.putString("title","页面3");
+        data.putString("title", "页面3");
         newfragment.setArguments(data);
         adapter.addFrag(newfragment, "页面3");
 

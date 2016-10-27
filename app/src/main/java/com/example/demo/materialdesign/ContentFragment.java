@@ -69,7 +69,7 @@ public class ContentFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(getActivity(), new ArrayList<String>());
+        mRecyclerViewAdapter = new RecyclerViewAdapter(getParentFragment(), new ArrayList<String>());
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
