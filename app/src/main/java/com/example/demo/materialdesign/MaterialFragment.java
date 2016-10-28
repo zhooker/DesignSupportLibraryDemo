@@ -1,5 +1,6 @@
 package com.example.demo.materialdesign;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import com.example.demo.BaseFragment;
 import com.example.demo.MainActivity;
 import com.example.demo.R;
+import com.example.demo.util.L;
 
 /**
  * Created by zhooker on 2016/10/22.
@@ -32,6 +34,7 @@ public class MaterialFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        L.df(this);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_material, container, false);
     }
@@ -54,6 +57,7 @@ public class MaterialFragment extends BaseFragment {
                         .setAction("Action", null).show();
             }
         });
+        L.df(this);
     }
 
     private void initTabLayout(View view) {
@@ -129,5 +133,71 @@ public class MaterialFragment extends BaseFragment {
 
 
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        L.df(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        L.df(this);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        L.d(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        L.df(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        L.df(this);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        L.d(hidden);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        L.df(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        L.df(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        L.df(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        L.df(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        L.df(this);
     }
 }

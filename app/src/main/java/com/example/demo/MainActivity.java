@@ -18,12 +18,12 @@ import com.example.demo.materialdesign.MaterialFragment;
 import com.example.demo.setting.PrefsFragement;
 import com.example.demo.setting.SettingFragement;
 import com.example.demo.transition.TransitionFragment;
+import com.example.demo.util.L;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Fragment currentFragment;
-    private int currentIndex;
+    private int lastID = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +34,15 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
-            currentIndex = 0;
+            lastID = switchContent(R.id.nav_material, -1);
+            navigationView.setCheckedItem(lastID);
         } else {
-            currentIndex = savedInstanceState.getInt(Constans.CURRENT_INDEX);
+            lastID = savedInstanceState.getInt(Constans.CURRENT_INDEX, R.id.nav_material);
         }
 
-        Log.d("zhuangsj", "onCreate() currentIndex = " + currentIndex);
-        //onNavigationItemSelected(navigationView.getMenu().findItem(getIdByIndex(currentIndex)));
-        int id = getIdByIndex(currentIndex);
-        if (id == R.id.nav_material) {
-            currentIndex = 0;
-            currentFragment = new MaterialFragment();
-        } else if (id == R.id.nav_transition) {
-            currentIndex = 1;
-            currentFragment = new TransitionFragment();
-        } else if (id == R.id.nav_setting) {
-            currentIndex = 2;
-            currentFragment = new SettingFragement();
-        } else if (id == R.id.nav_about) {
-            currentIndex = 3;
-            currentFragment = new AboutFragment();
-        }
-        switchContent(currentFragment);
+        Log.d("zhuangsj", "onCreate() currentIndex = " + getIndexById(lastID));
         // 用navigationView.getMenu().getItem(index).setChecked(true);会出问题
-        navigationView.setCheckedItem(id);
+        //onNavigationItemSelected(navigationView.getMenu().findItem(getIdByIndex(currentIndex)));
     }
 
     public void initDrawer(Toolbar toolbar) {
@@ -79,23 +64,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int getIdByIndex(int index) {
-        switch (index) {
-            case 1:
-                return R.id.nav_transition;
-            case 2:
-                return R.id.nav_setting;
-            case 3:
-                return R.id.nav_about;
-            default:
-                return R.id.nav_material;
-        }
-    }
-
-    public void switchContent(Fragment fragment) {
+    public int switchContent(int curr, int last) {
+        L.d("curr = " + curr + ",last = " + last);
         android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contentLayout, fragment).commit();
-        invalidateOptionsMenu();
+
+        Fragment lastFragment = getFragmentManager().findFragmentByTag("f" + last);
+        if (lastFragment != null)
+            fragmentTransaction.detach(lastFragment);
+
+        Fragment currFragment = getFragmentManager().findFragmentByTag("f" + curr);
+        if (currFragment == null) {
+            currFragment = getFragment(curr);
+            fragmentTransaction.replace(R.id.contentLayout, currFragment, "f" + curr);
+        }
+        fragmentTransaction.attach(currFragment).commitAllowingStateLoss();
+        //invalidateOptionsMenu();
+        return curr;
     }
 
     @Override
@@ -135,30 +119,52 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        lastID = switchContent(id, lastID);
 
-        if (id == R.id.nav_material) {
-            currentIndex = 0;
-            currentFragment = new MaterialFragment();
-        } else if (id == R.id.nav_transition) {
-            currentIndex = 1;
-            currentFragment = new TransitionFragment();
-        } else if (id == R.id.nav_setting) {
-            currentIndex = 2;
-            currentFragment = new SettingFragement();
-        } else if (id == R.id.nav_about) {
-            currentIndex = 3;
-            currentFragment = new AboutFragment();
-        }
-        switchContent(currentFragment);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        //item.setChecked(true);
         return true;
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(Constans.CURRENT_INDEX, currentIndex);
+        outState.putInt(Constans.CURRENT_INDEX, lastID);
         super.onSaveInstanceState(outState);
+    }
+
+    private Fragment getFragment(int id) {
+        if (id == R.id.nav_transition) {
+            return new TransitionFragment();
+        } else if (id == R.id.nav_setting) {
+            return new SettingFragement();
+        } else if (id == R.id.nav_about) {
+            return new AboutFragment();
+        } else return new MaterialFragment();
+    }
+
+    private int getIdByIndex(int index) {
+        switch (index) {
+            case 1:
+                return R.id.nav_transition;
+            case 2:
+                return R.id.nav_setting;
+            case 3:
+                return R.id.nav_about;
+            default:
+                return R.id.nav_material;
+        }
+    }
+
+    private int getIndexById(int id) {
+        switch (id) {
+            case R.id.nav_transition:
+                return 1;
+            case R.id.nav_setting:
+                return 2;
+            case R.id.nav_about:
+                return 3;
+            default:
+                return R.id.nav_material;
+        }
     }
 }
